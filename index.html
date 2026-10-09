@@ -3,19 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+  <title>SuckDickAlert | Official Site</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0f172a;
-      color: #ffffff;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding-top: 50px;
+      padding: 20px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid #334155;
+      max-width: 450px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      background-color: #38bdf8;
+      color: #0f172a;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #7dd3fc;
+      transform: translateY(-2px);
+    }
+
+    .status-text {
+      margin-top: 18px;
+      font-size: 0.95rem;
+      color: #f43f5e;
+      font-weight: 600;
+      min-height: 24px;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to Our Site</h1>
-  <p>Built together from scratch.</p>
+
+  <div class="card">
+    <h1>SuckDickAlert</h1>
+    <p>System operational. Click below to trigger the alert system.</p>
+    <button class="btn" onclick="triggerAlert()">Trigger Alert</button>
+    <div id="status" class="status-text"></div>
+  </div>
+
+  <script>
+    function triggerAlert() {
+      const statusDiv = document.getElementById('status');
+      statusDiv.innerText = "🚨 ALERT TRIGGERED: SYSTEM IS LIVE!";
+      
+      // Optional: Flash color back and forth
+      setTimeout(() => {
+        statusDiv.style.color = statusDiv.style.color === 'rgb(244, 63, 94)' ? '#38bdf8' : '#f43f5e';
+      }, 200);
+    }
+  </script>
+
 </body>
 </html>
