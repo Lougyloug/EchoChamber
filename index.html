@@ -1,338 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Echo Chamber Events</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo Chamber Events</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(17, 24, 39, 0.85);
+            --border-color: rgba(75, 85, 99, 0.4);
+            --accent-color: #38bdf8;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
 
-    html {
-      background-color: #0b0f19;
-      -webkit-text-size-adjust: 100%;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background-color: #0b0f19;
-      color: #f1f5f9;
-      min-height: 100vh;
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      position: relative;
-      overflow-x: hidden;
-    }
+        body {
+            font-family: monospace, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
 
-    .bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-      transform: translateZ(0);
-    }
+        .container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
 
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      will-change: transform;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-    .orb.one {
-      width: 520px; height: 520px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(56, 189, 248, 0) 70%);
-      top: -200px; left: -180px;
-      animation: drift1 18s ease-in-out infinite alternate;
-    }
+        .logo {
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+        }
 
-    .orb.two {
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(129, 140, 248, 0.35) 0%, rgba(129, 140, 248, 0) 70%);
-      bottom: -240px; right: -200px;
-      animation: drift2 22s ease-in-out infinite alternate;
-    }
+        nav {
+            display: flex;
+            gap: 15px;
+        }
 
-    .orb.three {
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, rgba(99, 102, 241, 0) 70%);
-      top: 45%; left: 55%;
-      animation: drift3 26s ease-in-out infinite alternate;
-    }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
 
-    @keyframes drift1 {
-      from { transform: translate3d(0, 0, 0) scale(1); }
-      to   { transform: translate3d(180px, 140px, 0) scale(1.2); }
-    }
-    @keyframes drift2 {
-      from { transform: translate3d(0, 0, 0) scale(1); }
-      to   { transform: translate3d(-200px, -120px, 0) scale(1.15); }
-    }
-    @keyframes drift3 {
-      from { transform: translate3d(0, 0, 0) scale(1); }
-      to   { transform: translate3d(-260px, 120px, 0) scale(0.8); }
-    }
+        .hero-text {
+            text-align: center;
+            margin: 10px 0;
+        }
 
-    .ripple {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 200px; height: 200px;
-      margin: -100px 0 0 -100px;
-      border: 2px solid rgba(56, 189, 248, 0.5);
-      border-radius: 50%;
-      opacity: 0;
-      will-change: transform, opacity;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      animation: echo 9s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
-    }
-    .ripple:nth-child(4) { animation-delay: 1.8s; }
-    .ripple:nth-child(5) { animation-delay: 3.6s; }
-    .ripple:nth-child(6) { animation-delay: 5.4s; }
-    .ripple:nth-child(7) { animation-delay: 7.2s; }
+        .hero-text h1 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
 
-    @keyframes echo {
-      0%   { transform: scale(0.2) translateZ(0); opacity: 0.6; }
-      70%  { opacity: 0.12; }
-      100% { transform: scale(7) translateZ(0); opacity: 0; }
-    }
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
 
-    header, main, footer {
-      position: relative;
-      z-index: 1;
-    }
+        .vibe-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
 
-    header {
-      padding: 40px 20px 20px;
-    }
+        .vibe-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
 
-    .brand-title {
-      font-size: 2.8rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc, #38bdf8);
-      background-size: 300% 300%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
-      animation:
-        titleIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) both,
-        gradientFlow 8s ease-in-out infinite 1.1s;
-    }
+        .vibe-btn:hover, .vibe-btn.active {
+            border-color: var(--accent-color);
+            background-color: rgba(56, 189, 248, 0.1);
+        }
 
-    @keyframes titleIn {
-      0%   { opacity: 0; transform: scale(1.12); }
-      100% { opacity: 1; transform: scale(1); }
-    }
+        .section-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
 
-    @keyframes gradientFlow {
-      0%, 100% { background-position: 0% 50%; }
-      50%      { background-position: 100% 50%; }
-    }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
 
-    .tagline {
-      color: #94a3b8;
-      font-size: 1.15rem;
-      font-weight: 400;
-      animation: fadeUp 0.9s ease-out 0.7s both;
-    }
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translate3d(0, 18px, 0); }
-      to   { opacity: 1; transform: translate3d(0, 0, 0); }
-    }
+        .card {
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-    main {
-      max-width: 600px;
-      width: 100%;
-      background: #1e293b;
-      padding: 36px;
-      border-radius: 16px;
-      border: 1px solid #334155;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-      margin: 20px 0;
-      overflow: hidden;
-      will-change: transform;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      animation:
-        cardIn 1s cubic-bezier(0.16, 1, 0.3, 1) 1s both,
-        float 6s ease-in-out 2s infinite;
-    }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
 
-    main::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 40%; height: 100%;
-      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.07), transparent);
-      pointer-events: none;
-      will-change: transform;
-      transform: translate3d(-150%, 0, 0) skewX(-20deg);
-      animation: sweep 6s ease-in-out 2.5s infinite;
-    }
+        .price {
+            color: var(--accent-color);
+        }
 
-    main::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      pointer-events: none;
-      box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.7), 0 0 30px rgba(56, 189, 248, 0.25);
-      opacity: 0;
-      animation: glow 4s ease-in-out 2s infinite;
-    }
+        ul {
+            margin: 0 0 20px 0;
+            padding-left: 18px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
 
-    @keyframes sweep {
-      0%        { transform: translate3d(-150%, 0, 0) skewX(-20deg); }
-      40%, 100% { transform: translate3d(400%, 0, 0) skewX(-20deg); }
-    }
+        li {
+            margin-bottom: 6px;
+        }
 
-    @keyframes cardIn {
-      from { opacity: 0; transform: translate3d(0, 50px, 0) scale(0.94); }
-      to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-    }
+        .action-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 0.75rem;
+            width: 100%;
+            border-radius: 4px;
+            transition: background 0.2s, border-color 0.2s;
+        }
 
-    @keyframes float {
-      0%, 100% { transform: translate3d(0, 0, 0); }
-      50%      { transform: translate3d(0, -8px, 0); }
-    }
+        .action-btn:hover {
+            border-color: var(--accent-color);
+            background: rgba(56, 189, 248, 0.1);
+        }
 
-    @keyframes glow {
-      0%, 100% { opacity: 0; }
-      50%      { opacity: 1; }
-    }
+        .form-container {
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-    h2 {
-      font-size: 1.5rem;
-      color: #f8fafc;
-      margin-bottom: 12px;
-      animation: fadeUp 0.8s ease-out 1.5s both;
-    }
+        .form-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
 
-    p {
-      color: #cbd5e1;
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
 
-    main p {
-      animation: fadeUp 0.8s ease-out 1.7s both;
-    }
+        .form-group input {
+            background: rgba(11, 15, 25, 0.6);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px;
+            font-family: monospace;
+            border-radius: 4px;
+        }
 
-    .cta-button {
-      display: inline-block;
-      position: relative;
-      background: linear-gradient(135deg, #38bdf8, #6366f1);
-      color: #ffffff;
-      text-decoration: none;
-      padding: 14px 28px;
-      font-weight: 600;
-      font-size: 1rem;
-      border-radius: 8px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
-      border: none;
-      -webkit-tap-highlight-color: transparent;
-      animation: popIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1.9s both;
-    }
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            align-items: center;
+        }
 
-    .cta-button::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 8px;
-      border: 2px solid rgba(56, 189, 248, 0.8);
-      pointer-events: none;
-      opacity: 0;
-      will-change: transform, opacity;
-      animation: pulse 2.4s ease-out 2.8s infinite;
-    }
-
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.5); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes pulse {
-      0%   { opacity: 0.8; transform: scale(1); }
-      100% { opacity: 0; transform: scale(1.35, 1.7); }
-    }
-
-    @media (hover: hover) {
-      .cta-button:hover {
-        transform: translateY(-2px) scale(1.05);
-        box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.3);
-      }
-    }
-
-    .cta-button:active {
-      transform: scale(0.95);
-    }
-
-    footer {
-      color: #64748b;
-      font-size: 0.875rem;
-      padding: 20px;
-      animation: fadeUp 1s ease-out 2.3s both;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        animation-delay: 0s !important;
-      }
-    }
-  </style>
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 20px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="bg" aria-hidden="true">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
-    <div class="ripple"></div>
-    <div class="ripple"></div>
-    <div class="ripple"></div>
-    <div class="ripple"></div>
-    <div class="ripple"></div>
-  </div>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">[LOGO] ECHO CHAMBER EVENTS</div>
+            <nav>
+                <a href="#backyard">Backyard BBQs</a>
+                <a href="#corporate">Corporate</a>
+                <a href="#senior">Senior Living</a>
+            </nav>
+        </header>
 
-  <header>
-    <h1 class="brand-title">ECHO CHAMBER EVENTS</h1>
-    <p class="tagline">Amplifying Sound, Scene, & Experience.</p>
-  </header>
+        <!-- Hero Section -->
+        <div class="hero-text">
+            <h1>AMPLIFYING SOUND, SCENE, & EXPERIENCE FOR ANY CROWD</h1>
+            <p>Premium Mobile Karaoke & Sound Systems for All Generations</p>
+        </div>
 
-  <main>
-    <h2>Upcoming Events & Announcements</h2>
-    <p>We are currently building something special. Stay tuned for upcoming event dates, ticket drops, and venue announcements.</p>
-    <button class="cta-button" onclick="notifyMe()">Get Notified</button>
-  </main>
+        <!-- Choose Your Vibe Navigation -->
+        <div class="vibe-nav">
+            <button class="vibe-btn active">[🍔] BACKYARD BBQS</button>
+            <button class="vibe-btn">[🏢] CORPORATE EVENTS</button>
+            <button class="vibe-btn">[❤️] SENIOR LIVING</button>
+        </div>
 
-  <footer>
-    &copy; 2026 Echo Chamber Events. All rights reserved.
-  </footer>
+        <!-- Choose Your Vibe Cards -->
+        <div class="section-title">CHOOSE YOUR VIBE</div>
+        <div class="grid-2">
+            <div class="card">
+                <div>
+                    <div class="card-header">BACKYARD & HOUSE PARTIES</div>
+                    <ul>
+                        <li>High-energy open-air fun</li>
+                    </ul>
+                </div>
+                <button class="action-btn">[See Media & Prices]</button>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="card-header">CORPORATE GIGS & GALAS</div>
+                    <ul>
+                        <li>Professional sound & hosting</li>
+                    </ul>
+                </div>
+                <button class="action-btn">[See Media & Prices]</button>
+            </div>
+        </div>
 
-  <script>
-    function notifyMe() {
-      alert("Thanks for your interest! Official lineup and event updates coming soon.");
-    }
-  </script>
+        <!-- Featured Gig Media -->
+        <div class="section-title">FEATURED GIG MEDIA (Adaptive Section based on selection above)</div>
+        <div class="grid-2">
+            <div class="card">
+                <div style="font-size: 0.8rem; color: var(--text-muted);">
+                    ▶ VIDEO: Backyard Birthday BBQ Jam<br>
+                    <span style="font-size: 0.75rem;">[Family-friendly hits, outdoor setup]</span>
+                </div>
+            </div>
+            <div class="card">
+                <div style="font-size: 0.8rem; color: var(--text-muted);">
+                    📸 PHOTO: Senior Center Sing-Along<br>
+                    <span style="font-size: 0.75rem;">[Clear lyric screens, comfortable volume]</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transparent Pricing Tiers -->
+        <div class="section-title">TRANSPARENT PRICING TIERS</div>
+        <div class="grid-2">
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <span>THE BACKYARD BASH</span>
+                        <span class="price">$450</span>
+                    </div>
+                    <ul>
+                        <li>3 Hours of continuous runtime</li>
+                        <li>Outdoor-ready compact audio setup</li>
+                        <li>80k+ track library with pop/rock hits</li>
+                    </ul>
+                </div>
+                <button class="action-btn">[ BOOK THE BASH ]</button>
+            </div>
+
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <span>SENIOR LIVING CLASSIC</span>
+                        <span class="price">$350</span>
+                    </div>
+                    <ul>
+                        <li>2 Hours of daytime entertainment</li>
+                        <li>Low-profile, crisp, warm sound system</li>
+                        <li>Focus on 50s, 60s, 70s, & Showtunes</li>
+                    </ul>
+                </div>
+                <button class="action-btn">[ BOOK THE CLASSIC ]</button>
+            </div>
+        </div>
+
+        <!-- Check Availability Form -->
+        <div class="section-title">CHECK AVAILABILITY FOR YOUR DATE</div>
+        <div class="form-container">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Full Name:</label>
+                    <input type="text" placeholder="[ Your Name ]">
+                </div>
+                <div class="form-group">
+                    <label>Contact Email:</label>
+                    <input type="email" placeholder="[ Your Email ]">
+                </div>
+            </div>
+            <div class="form-row" style="align-items: center;">
+                <div class="checkbox-group">
+                    <span>Event Type:</span>
+                    <label><input type="checkbox"> Backyard/House Party</label>
+                    <label><input type="checkbox"> Corporate Event</label>
+                    <label><input type="checkbox"> Senior Living Facility</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Event Date:</label>
+                    <input type="text" placeholder="[ MM / DD / YYYY ]">
+                </div>
+                <div class="checkbox-group" style="padding-top: 15px;">
+                    <span>Venue Setup:</span>
+                    <label><input type="checkbox"> Indoor</label>
+                    <label><input type="checkbox"> Outdoor</label>
+                </div>
+            </div>
+            <button class="action-btn" style="margin-top: 10px;">[ CHECK AVAILABILITY ]</button>
+        </div>
+
+        <footer>
+            326 Echo Chamber Events. All Rights Reserved.
+        </footer>
+    </div>
 
 </body>
 </html>
