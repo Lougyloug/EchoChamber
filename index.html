@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Echo Chamber Events</title>
   <style>
-    /* YOUR ORIGINAL STYLES (KEEPING ALL EXISTING ANIMATIONS) */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,14 +14,14 @@
     html {
       background-color: #0b0f19;
       -webkit-text-size-adjust: 100%;
-      scroll-behavior: smooth; /* Smooth scrolling for the 'Get Notified' jump */
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background-color: #0b0f19;
       color: #f1f5f9;
-      min-height: 200vh; /* Increased height to make it scrollable for the fade */
+      min-height: 200vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -34,18 +33,18 @@
     /* THE ANIMATED BACKGROUND CONTAINERS */
     .hero-container {
         width: 100%;
-        height: 100vh; /* Full screen animation to start */
+        height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 20px;
         position: relative;
-        z-index: 1; /* Animation stays on top of orbs */
+        z-index: 1;
     }
 
     .bg {
-      position: fixed; /* Still fixed, but now hero-container controls view */
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -122,7 +121,6 @@
       100% { transform: scale(7) translateZ(0); opacity: 0; }
     }
 
-    /* THE TITLE AND TAGLINE FROM PAGE 1 */
     .brand-title {
       font-size: 2.8rem;
       font-weight: 800;
@@ -161,7 +159,6 @@
       to   { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
-    /* THE ORIGINAL 'GET NOTIFIED' BUTTON STYLE */
     .cta-button {
       display: inline-block;
       position: relative;
@@ -212,45 +209,39 @@
       transform: scale(0.95);
     }
 
-
-    /* NEW: FADE EFFECT FOR THE ENTIRE HERO SECTION */
-    /* This effect reduces opacity of the title as the page scrolls */
     .hero-container h1, .hero-container .tagline, .hero-container .cta-button {
         transition: opacity 0.5s ease-out;
         will-change: opacity;
     }
 
-    /* THE CONTENT SECTION (Revealed as you scroll) */
+    /* THE CONTENT SECTION */
     .main-content {
       position: relative;
       width: 100%;
       max-width: 900px;
       padding: 60px 20px;
-      background-color: #0b0f19; /* Opaque background to cover the fixed animations */
+      background-color: #0b0f19;
       border-top: 1px solid rgba(75, 85, 99, 0.4);
-      z-index: 10; /* Keep structured content on top */
-      opacity: 0; /* Hidden initially for the fade in on scroll */
-      transform: translateY(30px); /* Slide up on fade */
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(30px);
       transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
-    /* Reveal class for intersection observer */
     .main-content.revealed {
         opacity: 1;
         transform: translateY(0);
     }
 
-    /* STYLES FOR THE STRUCTURED WIREFRAME CONTENT (ADAPTED FROM WIREFRAME BLOCK) */
     :root {
       --bg-color: #0b0f19;
       --card-bg: rgba(17, 24, 39, 0.7);
       --border-color: rgba(75, 85, 99, 0.4);
-      --accent-color: #38bdf8; /* Adjusted to match primary blue */
+      --accent-color: #38bdf8;
       --text-main: #f3f4f6;
       --text-muted: #9ca3af;
     }
 
-    /* Mono font for structured layout */
     .main-content * {
         font-family: monospace, sans-serif !important;
     }
@@ -305,7 +296,7 @@
       color: var(--text-muted);
       border-bottom: 1px dashed var(--border-color);
       padding-bottom: 5px;
-      margin-top: 25px;
+      margin-top: 35px;
       text-align: left;
     }
 
@@ -357,7 +348,6 @@
       margin-bottom: 6px;
     }
 
-    /* THE WIREFRAME ACTION BUTTONS */
     .action-btn {
       background: none;
       border: 1px solid var(--border-color);
@@ -376,7 +366,53 @@
       color: var(--bg-color);
     }
 
-    /* THE FINAL FOOTER AT THE BOTTOM OF SCROLL */
+    /* Availability Form Styling */
+    .form-container {
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group input {
+      background: rgba(11, 15, 25, 0.6);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px;
+      font-family: monospace, sans-serif !important;
+      border-radius: 4px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      align-items: center;
+    }
+
     footer {
       color: #64748b;
       font-size: 0.875rem;
@@ -397,7 +433,7 @@
 </head>
 <body>
 
-  <!-- THE BACKGROUND ANIMATION (Still fixed) -->
+  <!-- BACKGROUND ANIMATION -->
   <div class="bg" aria-hidden="true">
     <div class="orb one"></div>
     <div class="orb two"></div>
@@ -409,16 +445,15 @@
     <div class="ripple"></div>
   </div>
 
-  <!-- PAGE 1: THE HERO SECTION (Initial view) -->
+  <!-- PAGE 1: HERO SECTION -->
   <div class="hero-container">
     <h1 class="brand-title">ECHO CHAMBER EVENTS</h1>
     <p class="tagline">Amplifying Sound, Scene, & Experience.</p>
-    <a href="#content" class="cta-button">Enter A Musical World</a>
+    <a href="#content" class="cta-button">Enter Musical World</a>
   </div>
 
-  <!-- PAGE 2: THE STRUCTURED CONTENT (Revealed on scroll) -->
+  <!-- PAGE 2: STRUCTURED WIREFRAME CONTENT -->
   <section id="content" class="main-content">
-      <!-- (Keeping the structure from the wireframe block) -->
       <header>
           <div class="logo">[LOGO] ECHO CHAMBER EVENTS</div>
           <nav>
@@ -504,20 +539,55 @@
                       <li>2 Hours of daytime entertainment</li>
                       <li>Low-profile, crisp, warm sound system</li>
                       <li>Focus on 50s, 60s, 70s, & Showtunes</li>
-                    </ul>
+                  </ul>
               </div>
               <button class="action-btn">[ BOOK THE CLASSIC ]</button>
           </div>
       </div>
+
+      <!-- CHECK AVAILABILITY SECTION -->
+      <div class="section-title">CHECK AVAILABILITY FOR YOUR DATE</div>
+      <div class="form-container">
+          <div class="form-row">
+              <div class="form-group">
+                  <label>Full Name:</label>
+                  <input type="text" placeholder="[ Your Name ]">
+              </div>
+              <div class="form-group">
+                  <label>Contact Email:</label>
+                  <input type="email" placeholder="[ Your Email ]">
+              </div>
+          </div>
+          <div class="form-row" style="align-items: center;">
+              <div class="checkbox-group">
+                  <span>Event Type:</span>
+                  <label><input type="checkbox"> Backyard/House Party</label>
+                  <label><input type="checkbox"> Corporate Event</label>
+                  <label><input type="checkbox"> Senior Living Facility</label>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group">
+                  <label>Event Date:</label>
+                  <input type="text" placeholder="[ MM / DD / YYYY ]">
+              </div>
+              <div class="checkbox-group" style="padding-top: 15px;">
+                  <span>Venue Setup:</span>
+                  <label><input type="checkbox"> Indoor</label>
+                  <label><input type="checkbox"> Outdoor</label>
+              </div>
+          </div>
+          <button class="action-btn" style="margin-top: 10px;">[ CHECK AVAILABILITY ]</button>
+      </div>
+
   </section>
 
-  <!-- THE FINAL FOOTER AT THE BOTTOM OF THE SCROLL -->
+  <!-- FOOTER -->
   <footer>
     &copy; 2026 Echo Chamber Events. All rights reserved.
   </footer>
 
   <script>
-    /* SCRIPT TO CREATE THE FADE-ON-SCROLL EFFECTS */
     const heroElements = document.querySelectorAll('.hero-container h1, .hero-container .tagline, .hero-container .cta-button');
     const contentSection = document.getElementById('content');
 
@@ -525,24 +595,21 @@
         let scrollPos = window.scrollY;
         let windowHeight = window.innerHeight;
 
-        // FADE OUT Page 1 Elements (Title, Tagline, Button)
         heroElements.forEach(el => {
             let opacity = 1 - (scrollPos / (windowHeight / 2));
             el.style.opacity = Math.max(0, opacity);
-            // Hide pointer events when faded out so you can't click through
             if (opacity <= 0.1) { el.style.pointerEvents = 'none'; }
             else { el.style.pointerEvents = 'auto'; }
         });
     });
 
-    // FADE IN Page 2 Content (The structured wireframe layout)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
             }
         });
-    }, { threshold: 0.1 }); // Reveal when 10% of the section is visible
+    }, { threshold: 0.1 });
 
     observer.observe(contentSection);
   </script>
