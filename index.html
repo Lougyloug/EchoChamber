@@ -247,7 +247,6 @@
       --text-muted: #9ca3af;
     }
 
-    /* APPLIES ARIMO FONT TO THE SECOND SECTION */
     .main-content * {
         font-family: 'Arimo', sans-serif !important;
     }
@@ -259,11 +258,14 @@
       border-bottom: 1px solid var(--border-color);
       padding-bottom: 15px;
       margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
-    .logo {
-      font-weight: bold;
-      letter-spacing: 1px;
+    .header-logo {
+      max-height: 55px;
+      width: auto;
+      border-radius: 4px;
     }
 
     nav a {
@@ -271,6 +273,7 @@
       text-decoration: none;
       margin-left: 15px;
       font-size: 0.9rem;
+      cursor: pointer;
     }
 
     .vibe-nav {
@@ -328,6 +331,12 @@
       flex-direction: column;
       justify-content: space-between;
       text-align: left;
+      transition: border-color 0.3s ease;
+    }
+
+    .card.highlighted {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
     }
 
     .card-header {
@@ -354,7 +363,6 @@
       margin-bottom: 6px;
     }
 
-    /* Availability Form Styling */
     .form-container {
       border: 1px solid var(--border-color);
       background: var(--card-bg);
@@ -419,6 +427,42 @@
       color: var(--bg-color);
     }
 
+    .availability-result {
+      display: none;
+      margin-top: 15px;
+      padding: 20px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid var(--accent-color);
+      border-radius: 6px;
+      text-align: left;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .availability-result h4 {
+      color: var(--accent-color);
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .availability-result p {
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .availability-result a {
+      color: var(--accent-color);
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     footer {
       color: #64748b;
       font-size: 0.875rem;
@@ -458,10 +502,10 @@
     <a href="#content" class="cta-button">Enter The Karaoke Experience</a>
   </div>
 
-  <!-- PAGE 2: STRUCTURED WIREFRAME CONTENT (ARIMO FONT) -->
+  <!-- PAGE 2: STRUCTURED WIREFRAME CONTENT -->
   <section id="content" class="main-content">
       <header>
-          <div class="logo">[LOGO] ECHO CHAMBER EVENTS</div>
+          <img src="logo.jpeg" alt="The Echo Chamber Karaoke Experience" class="header-logo">
           <nav>
               <a href="#content">Backyard BBQs</a>
               <a href="#content">Corporate</a>
@@ -474,15 +518,16 @@
           <span style="color: var(--text-muted); font-weight: normal; font-size: 0.85rem;">Premium Mobile Karaoke & Sound Systems for All Generations</span>
       </div>
 
+      <!-- INTERACTIVE VIBE BUTTONS -->
       <div class="vibe-nav">
-          <button class="vibe-btn active">[🍔] BACKYARD BBQS</button>
-          <button class="vibe-btn">[🏢] CORPORATE EVENTS</button>
-          <button class="vibe-btn">[❤️] SENIOR LIVING</button>
+          <button class="vibe-btn active" id="btn-backyard" onclick="filterVibe('backyard')">[🍔] BACKYARD BBQS</button>
+          <button class="vibe-btn" id="btn-corporate" onclick="filterVibe('corporate')">[🏢] CORPORATE EVENTS</button>
+          <button class="vibe-btn" id="btn-senior" onclick="filterVibe('senior')">[❤️] SENIOR LIVING</button>
       </div>
 
       <div class="section-title">CHOOSE YOUR VIBE</div>
       <div class="grid-2">
-          <div class="card">
+          <div class="card" id="card-backyard">
               <div>
                   <div class="card-header">BACKYARD & HOUSE PARTIES</div>
                   <ul>
@@ -490,7 +535,7 @@
                   </ul>
               </div>
           </div>
-          <div class="card">
+          <div class="card" id="card-corporate">
               <div>
                   <div class="card-header">CORPORATE GIGS & GALAS</div>
                   <ul>
@@ -501,15 +546,15 @@
       </div>
 
       <div class="section-title">FEATURED GIG MEDIA (Adaptive Section based on selection above)</div>
-      <div class="grid-2">
+      <div class="grid-2" id="media-display">
           <div class="card">
-              <div style="font-size: 0.8rem; color: var(--text-muted);">
+              <div style="font-size: 0.8rem; color: var(--text-muted);" id="media-1-text">
                   ▶ VIDEO: Backyard Birthday BBQ Jam<br>
                   <span style="font-size: 0.75rem;">[Family-friendly hits, outdoor setup]</span>
               </div>
           </div>
           <div class="card">
-              <div style="font-size: 0.8rem; color: var(--text-muted);">
+              <div style="font-size: 0.8rem; color: var(--text-muted);" id="media-2-text">
                   📸 PHOTO: Senior Center Sing-Along<br>
                   <span style="font-size: 0.75rem;">[Clear lyric screens, comfortable volume]</span>
               </div>
@@ -518,11 +563,11 @@
 
       <div class="section-title">TRANSPARENT PRICING TIERS</div>
       <div class="grid-2">
-          <div class="card">
+          <div class="card" id="pricing-backyard">
               <div>
                   <div class="card-header">
                       <span>THE BACKYARD BASH</span>
-                      <span class="price">$450</span>
+                      <span class="price">\$450</span>
                   </div>
                   <ul>
                       <li>3 Hours of continuous runtime</li>
@@ -532,11 +577,11 @@
               </div>
           </div>
 
-          <div class="card">
+          <div class="card" id="pricing-senior">
               <div>
                   <div class="card-header">
                       <span>SENIOR LIVING CLASSIC</span>
-                      <span class="price">$350</span>
+                      <span class="price">\$350</span>
                   </div>
                   <ul>
                       <li>2 Hours of daytime entertainment</li>
@@ -553,33 +598,39 @@
           <div class="form-row">
               <div class="form-group">
                   <label>Full Name:</label>
-                  <input type="text" placeholder="[ Your Name ]">
+                  <input type="text" id="form-name" placeholder="[ Your Name ]">
               </div>
               <div class="form-group">
                   <label>Contact Email:</label>
-                  <input type="email" placeholder="[ Your Email ]">
+                  <input type="email" id="form-email" placeholder="[ Your Email ]">
               </div>
           </div>
           <div class="form-row" style="align-items: center;">
               <div class="checkbox-group">
                   <span>Event Type:</span>
-                  <label><input type="checkbox"> Backyard/House Party</label>
-                  <label><input type="checkbox"> Corporate Event</label>
-                  <label><input type="checkbox"> Senior Living Facility</label>
+                  <label><input type="checkbox" id="type-backyard"> Backyard/House Party</label>
+                  <label><input type="checkbox" id="type-corporate"> Corporate Event</label>
+                  <label><input type="checkbox" id="type-senior"> Senior Living Facility</label>
               </div>
           </div>
           <div class="form-row">
               <div class="form-group">
                   <label>Event Date:</label>
-                  <input type="text" placeholder="[ MM / DD / YYYY ]">
+                  <input type="text" id="form-date" placeholder="[ MM / DD / YYYY ]">
               </div>
               <div class="checkbox-group" style="padding-top: 15px;">
                   <span>Venue Setup:</span>
-                  <label><input type="checkbox"> Indoor</label>
-                  <label><input type="checkbox"> Outdoor</label>
+                  <label><input type="checkbox" id="venue-indoor"> Indoor</label>
+                  <label><input type="checkbox" id="venue-outdoor"> Outdoor</label>
               </div>
           </div>
-          <button class="action-btn" style="margin-top: 10px;">[ CHECK AVAILABILITY ]</button>
+          <button class="action-btn" style="margin-top: 10px;" onclick="checkAvailability()">[ CHECK AVAILABILITY ]</button>
+          
+          <!-- IN-PAGE RESULT BOX -->
+          <div id="availability-result" class="availability-result">
+              <h4>Availability Inquiry Ready</h4>
+              <p id="result-message">Please reach out to our booking team to lock in your date and rates.</p>
+          </div>
       </div>
 
   </section>
@@ -614,6 +665,62 @@
     }, { threshold: 0.1 });
 
     observer.observe(contentSection);
+
+    /* INTERACTIVE VIBE SWITCHER LOGIC */
+    function filterVibe(vibe) {
+        document.querySelectorAll('.vibe-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.card').forEach(card => card.classList.remove('highlighted'));
+        
+        document.getElementById('type-backyard').checked = false;
+        document.getElementById('type-corporate').checked = false;
+        document.getElementById('type-senior').checked = false;
+
+        if (vibe === 'backyard') {
+            document.getElementById('btn-backyard').classList.add('active');
+            document.getElementById('card-backyard').classList.add('highlighted');
+            document.getElementById('pricing-backyard').classList.add('highlighted');
+            document.getElementById('type-backyard').checked = true;
+            
+            document.getElementById('media-1-text').innerHTML = '▶ VIDEO: Backyard Birthday BBQ Jam<br><span style="font-size: 0.75rem;">[Family-friendly hits, outdoor setup]</span>';
+            document.getElementById('media-2-text').innerHTML = '📸 PHOTO: Summer Sunset Open-Air Party<br><span style="font-size: 0.75rem;">[High energy, robust sound coverage]</span>';
+        
+        } else if (vibe === 'corporate') {
+            document.getElementById('btn-corporate').classList.add('active');
+            document.getElementById('card-corporate').classList.add('highlighted');
+            document.getElementById('type-corporate').checked = true;
+            
+            document.getElementById('media-1-text').innerHTML = '▶ VIDEO: Annual Tech Gala Live Mix<br><span style="font-size: 0.75rem;">[Professional sound array, seamless queue]</span>';
+            document.getElementById('media-2-text').innerHTML = '📸 PHOTO: Executive Networking Mixer<br><span style="font-size: 0.75rem;">[Low-profile crisp audio, wireless mics]</span>';
+        
+        } else if (vibe === 'senior') {
+            document.getElementById('btn-senior').classList.add('active');
+            document.getElementById('pricing-senior').classList.add('highlighted');
+            document.getElementById('type-senior').checked = true;
+            
+            document.getElementById('media-1-text').innerHTML = '▶ VIDEO: Classic 60s & 70s Sing-Along<br><span style="font-size: 0.75rem;">[Clear lyric projection, warm vocals]</span>';
+            document.getElementById('media-2-text').innerHTML = '📸 PHOTO: Afternoon Community Center Jam<br><span style="font-size: 0.75rem;">[Comfortable volume, nostalgic favorites]</span>';
+        }
+    }
+
+    /* IN-PAGE AVAILABILITY & EMAIL INSTRUCTIONS */
+    function checkAvailability() {
+        const name = document.getElementById('form-name').value || "Valued Client";
+        const dateInput = document.getElementById('form-date').value || "your requested date";
+
+        let eventType = "General Event";
+        if (document.getElementById('type-backyard').checked) eventType = "Backyard/House Party (\$450)";
+        if (document.getElementById('type-corporate').checked) eventType = "Corporate Event Gig";
+        if (document.getElementById('type-senior').checked) eventType = "Senior Living Facility (\$350)";
+
+        let setup = document.getElementById('venue-outdoor').checked ? "Outdoor Setup" : "Indoor Setup";
+
+        const resultBox = document.getElementById('availability-result');
+        const messageEl = document.getElementById('result-message');
+
+        messageEl.innerHTML = `Thanks <strong>${name}</strong>! For <strong>${dateInput}</strong> (${eventType}, ${setup}), rates and calendar availability are managed directly by our team.<br><br>Please reach out to us at <a href="mailto:echochamberkaraoke@gmail.com">echochamberkaraoke@gmail.com</a> with these details to confirm your slot!`;
+        
+        resultBox.style.display = 'block';
+    }
   </script>
 
 </body>
