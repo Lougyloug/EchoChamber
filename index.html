@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Echo Chamber Events</title>
+  <!-- Import Arimo font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  
   <style>
     * {
       box-sizing: border-box;
@@ -242,8 +247,9 @@
       --text-muted: #9ca3af;
     }
 
+    /* APPLIES ARIMO FONT TO THE SECOND SECTION */
     .main-content * {
-        font-family: monospace, sans-serif !important;
+        font-family: 'Arimo', sans-serif !important;
     }
 
     header {
@@ -338,7 +344,7 @@
     }
 
     .card ul {
-      margin: 0 0 20px 0;
+      margin: 0;
       padding-left: 18px;
       color: var(--text-muted);
       font-size: 0.85rem;
@@ -346,24 +352,6 @@
 
     .card li {
       margin-bottom: 6px;
-    }
-
-    .action-btn {
-      background: none;
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 10px;
-      text-align: center;
-      cursor: pointer;
-      font-size: 0.8rem;
-      width: 100%;
-      border-radius: 4px;
-      transition: background 0.2s;
-    }
-
-    .action-btn:hover {
-      background: var(--text-main);
-      color: var(--bg-color);
     }
 
     /* Availability Form Styling */
@@ -400,7 +388,7 @@
       border: 1px solid var(--border-color);
       color: var(--text-main);
       padding: 8px;
-      font-family: monospace, sans-serif !important;
+      font-family: 'Arimo', sans-serif !important;
       border-radius: 4px;
     }
 
@@ -411,6 +399,24 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       align-items: center;
+    }
+
+    .action-btn {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.8rem;
+      width: 100%;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .action-btn:hover {
+      background: var(--text-main);
+      color: var(--bg-color);
     }
 
     footer {
@@ -452,7 +458,7 @@
     <a href="#content" class="cta-button">Enter Musical World</a>
   </div>
 
-  <!-- PAGE 2: STRUCTURED WIREFRAME CONTENT -->
+  <!-- PAGE 2: STRUCTURED WIREFRAME CONTENT (ARIMO FONT) -->
   <section id="content" class="main-content">
       <header>
           <div class="logo">[LOGO] ECHO CHAMBER EVENTS</div>
@@ -483,7 +489,6 @@
                       <li>High-energy open-air fun</li>
                   </ul>
               </div>
-              <button class="action-btn">[See Media & Prices]</button>
           </div>
           <div class="card">
               <div>
@@ -492,7 +497,6 @@
                       <li>Professional sound & hosting</li>
                   </ul>
               </div>
-              <button class="action-btn">[See Media & Prices]</button>
           </div>
       </div>
 
@@ -526,7 +530,6 @@
                       <li>80k+ track library with pop/rock hits</li>
                   </ul>
               </div>
-              <button class="action-btn">[ BOOK THE BASH ]</button>
           </div>
 
           <div class="card">
@@ -541,7 +544,6 @@
                       <li>Focus on 50s, 60s, 70s, & Showtunes</li>
                   </ul>
               </div>
-              <button class="action-btn">[ BOOK THE CLASSIC ]</button>
           </div>
       </div>
 
