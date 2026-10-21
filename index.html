@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Echo Chamber Events</title>
-  <!-- Import Arimo font from Google Fonts -->
+  <!-- Import Inter font from Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet">
   
   <style>
     * {
@@ -23,7 +23,7 @@
     }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background-color: #0b0f19;
       color: #f1f5f9;
       min-height: 200vh;
@@ -248,12 +248,12 @@
     }
 
     .main-content * {
-        font-family: 'Arimo', sans-serif !important;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
     }
 
     header {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       border-bottom: 1px solid var(--border-color);
       padding-bottom: 15px;
@@ -396,7 +396,7 @@
       border: 1px solid var(--border-color);
       color: var(--text-main);
       padding: 8px;
-      font-family: 'Arimo', sans-serif !important;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
       border-radius: 4px;
     }
 
@@ -479,6 +479,119 @@
         animation-delay: 0s !important;
       }
     }
+  
+    /* ===== AUDIO-STYLE BUTTONS ===== */
+    .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+    .eq i {
+      --d: 0s; --t: .9s;
+      width: 3px; height: 100%;
+      background: currentColor; border-radius: 2px;
+      transform: scaleY(.25); transform-origin: bottom;
+    }
+    .eq i:nth-child(1) { --d: -.2s; --t: .7s; }
+    .eq i:nth-child(2) { --d: -.6s; --t: 1s; }
+    .eq i:nth-child(3) { --d: -.4s; --t: .8s; }
+    .eq i:nth-child(4) { --d: -.8s; --t: 1.1s; }
+    .vibe-btn.active .eq i,
+    .vibe-btn:hover .eq i,
+    .cta-button .eq i,
+    .action-btn:hover .eq i {
+      animation: eqBounce var(--t) ease-in-out var(--d) infinite alternate;
+    }
+    @keyframes eqBounce { from { transform: scaleY(.2); } to { transform: scaleY(1); } }
+
+    .vibe-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 18px; border-radius: 999px;
+      font-size: .85rem; font-weight: 700; color: var(--text-muted);
+      background: linear-gradient(180deg, rgba(30,41,59,.9), rgba(15,23,42,.9));
+      border: 1px solid var(--border-color);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 4px 10px rgba(0,0,0,.35);
+      transition: color .2s, border-color .2s, box-shadow .2s, transform .1s;
+    }
+    .vibe-btn .led {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #334155; transition: background .2s, box-shadow .2s;
+    }
+    .vibe-btn:hover { color: var(--text-main); }
+    .vibe-btn:active { transform: translateY(1px) scale(.97); }
+    .vibe-btn.active {
+      color: #fff; border-color: var(--accent-color);
+      background: linear-gradient(180deg, rgba(56,189,248,.22), rgba(99,102,241,.18));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 20px rgba(56,189,248,.35);
+    }
+    .vibe-btn.active .led { background: var(--accent-color); box-shadow: 0 0 10px 2px var(--accent-color); }
+    .vibe-btn:focus-visible, .cta-button:focus-visible, .action-btn:focus-visible {
+      outline: 2px solid #fff; outline-offset: 3px;
+    }
+
+    .cta-button {
+      display: inline-flex; align-items: center; gap: 14px;
+      padding: 10px 26px 10px 10px; border-radius: 999px;
+      box-shadow: 0 0 28px rgba(99,102,241,.45);
+    }
+    .cta-button::after { border-radius: 999px; }
+    .cta-button .play {
+      position: relative; width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,.22); flex-shrink: 0;
+      transition: transform .2s ease;
+    }
+    .cta-button .play::before {
+      content: ""; position: absolute; top: 50%; left: 52%;
+      transform: translate(-50%, -50%);
+      border-style: solid; border-width: 7px 0 7px 12px;
+      border-color: transparent transparent transparent #fff;
+    }
+    @media (hover: hover) { .cta-button:hover .play { transform: scale(1.12); } }
+
+    .action-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+      padding: 14px; font-size: .9rem; font-weight: 700; letter-spacing: .02em;
+      color: var(--accent-color); border-color: rgba(56,189,248,.5);
+      background: rgba(56,189,248,.06); border-radius: 8px;
+      transition: background .25s, color .25s, box-shadow .25s, transform .1s;
+    }
+    .action-btn:hover {
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      color: #fff; box-shadow: 0 0 22px rgba(56,189,248,.4);
+    }
+    .action-btn:active { transform: scale(.98); }
+  
+    /* ===== TOGGLE CHIPS (multi-select) ===== */
+    .chip { position: relative; display: inline-flex; cursor: pointer; }
+    .chip input {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      opacity: 0; margin: 0; cursor: pointer;
+    }
+    .chip-face {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 8px 14px; border-radius: 999px;
+      font-size: .8rem; font-weight: 700; color: var(--text-muted);
+      background: linear-gradient(180deg, rgba(30,41,59,.9), rgba(15,23,42,.9));
+      border: 1px solid var(--border-color);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+      transition: color .2s, border-color .2s, box-shadow .2s, transform .1s;
+      user-select: none;
+    }
+    .chip-face .led {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #334155; transition: background .2s, box-shadow .2s;
+    }
+    .chip:hover .chip-face { color: var(--text-main); border-color: rgba(56,189,248,.5); }
+    .chip:active .chip-face { transform: scale(.96); }
+    .chip input:checked + .chip-face {
+      color: #fff; border-color: var(--accent-color);
+      background: linear-gradient(180deg, rgba(56,189,248,.22), rgba(99,102,241,.18));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 16px rgba(56,189,248,.35);
+    }
+    .chip input:checked + .chip-face .led { background: var(--accent-color); box-shadow: 0 0 10px 2px var(--accent-color); }
+    .chip input:checked + .chip-face .eq i,
+    .chip:hover .chip-face .eq i {
+      animation: eqBounce var(--t) ease-in-out var(--d) infinite alternate;
+    }
+    .chip input:focus-visible + .chip-face { outline: 2px solid #fff; outline-offset: 3px; }
+  
+    .action-btn:disabled { opacity: .6; cursor: wait; }
   </style>
 </head>
 <body>
@@ -498,18 +611,13 @@
   <!-- PAGE 1: HERO SECTION -->
   <div class="hero-container">
     <h1 class="brand-title">ECHO CHAMBER EVENTS</h1>
-    <a href="#content" class="cta-button">Enter The Karaoke Experience</a>
+    <a href="#content" class="cta-button"><span class="play"></span>Enter The Karaoke Experience<span class="eq"><i></i><i></i><i></i><i></i></span></a>
   </div>
 
   <!-- PAGE 2: STRUCTURED WIREFRAME CONTENT -->
   <section id="content" class="main-content">
       <header>
           <img src="logo.jpeg.jpeg" alt="The Echo Chamber Karaoke Experience" class="header-logo">
-          <nav>
-              <a href="#content">Backyard BBQs</a>
-              <a href="#content">Corporate</a>
-              <a href="#content">Senior Living</a>
-          </nav>
       </header>
 
       <div class="hero-text" style="margin-bottom: 20px; font-weight: bold; text-align: left;">
@@ -519,9 +627,9 @@
 
       <!-- INTERACTIVE VIBE BUTTONS -->
       <div class="vibe-nav">
-          <button class="vibe-btn active" id="btn-backyard" onclick="filterVibe('backyard')">[🍔] BACKYARD BBQS</button>
-          <button class="vibe-btn" id="btn-corporate" onclick="filterVibe('corporate')">[🏢] CORPORATE EVENTS</button>
-          <button class="vibe-btn" id="btn-senior" onclick="filterVibe('senior')">[❤️] SENIOR LIVING</button>
+          <button class="vibe-btn active" id="btn-backyard" onclick="filterVibe('backyard')"><span class="led"></span>Backyard BBQs<span class="eq"><i></i><i></i><i></i><i></i></span></button>
+          <button class="vibe-btn" id="btn-corporate" onclick="filterVibe('corporate')"><span class="led"></span>Corporate Events<span class="eq"><i></i><i></i><i></i><i></i></span></button>
+          <button class="vibe-btn" id="btn-senior" onclick="filterVibe('senior')"><span class="led"></span>Senior Living<span class="eq"><i></i><i></i><i></i><i></i></span></button>
       </div>
 
       <div class="section-title">CHOOSE YOUR VIBE</div>
@@ -607,9 +715,9 @@
           <div class="form-row" style="align-items: center;">
               <div class="checkbox-group">
                   <span>Event Type:</span>
-                  <label><input type="checkbox" id="type-backyard"> Backyard/House Party</label>
-                  <label><input type="checkbox" id="type-corporate"> Corporate Event</label>
-                  <label><input type="checkbox" id="type-senior"> Senior Living Facility</label>
+                  <label class="chip"><input type="radio" name="event-type" id="type-backyard"><span class="chip-face"><span class="led"></span>Backyard/House Party<span class="eq"><i></i><i></i><i></i><i></i></span></span></label>
+                  <label class="chip"><input type="radio" name="event-type" id="type-corporate"><span class="chip-face"><span class="led"></span>Corporate Event<span class="eq"><i></i><i></i><i></i><i></i></span></span></label>
+                  <label class="chip"><input type="radio" name="event-type" id="type-senior"><span class="chip-face"><span class="led"></span>Senior Living Facility<span class="eq"><i></i><i></i><i></i><i></i></span></span></label>
               </div>
           </div>
           <div class="form-row">
@@ -619,11 +727,11 @@
               </div>
               <div class="checkbox-group" style="padding-top: 15px;">
                   <span>Venue Setup:</span>
-                  <label><input type="checkbox" id="venue-indoor"> Indoor</label>
-                  <label><input type="checkbox" id="venue-outdoor"> Outdoor</label>
+                  <label class="chip"><input type="radio" name="venue" id="venue-indoor"><span class="chip-face"><span class="led"></span>Indoor<span class="eq"><i></i><i></i><i></i><i></i></span></span></label>
+                  <label class="chip"><input type="radio" name="venue" id="venue-outdoor"><span class="chip-face"><span class="led"></span>Outdoor<span class="eq"><i></i><i></i><i></i><i></i></span></span></label>
               </div>
           </div>
-          <button class="action-btn" style="margin-top: 10px;" onclick="checkAvailability()">[ CHECK AVAILABILITY ]</button>
+          <button class="action-btn" style="margin-top: 10px;" onclick="checkAvailability()"><span class="eq"><i></i><i></i><i></i><i></i></span>Check Availability<span class="eq"><i></i><i></i><i></i><i></i></span></button>
           
           <!-- IN-PAGE RESULT BOX -->
           <div id="availability-result" class="availability-result">
@@ -669,10 +777,6 @@
     function filterVibe(vibe) {
         document.querySelectorAll('.vibe-btn').forEach(btn => btn.classList.remove('active'));
         document.querySelectorAll('.card').forEach(card => card.classList.remove('highlighted'));
-        
-        document.getElementById('type-backyard').checked = false;
-        document.getElementById('type-corporate').checked = false;
-        document.getElementById('type-senior').checked = false;
 
         if (vibe === 'backyard') {
             document.getElementById('btn-backyard').classList.add('active');
@@ -702,23 +806,64 @@
     }
 
     /* IN-PAGE AVAILABILITY & EMAIL INSTRUCTIONS */
-    function checkAvailability() {
-        const name = document.getElementById('form-name').value || "Valued Client";
-        const dateInput = document.getElementById('form-date').value || "your requested date";
+    function checkAvailability() { return sendInquiry(); }
 
-        let eventType = "General Event";
-        if (document.getElementById('type-backyard').checked) eventType = "Backyard/House Party (\$450)";
-        if (document.getElementById('type-corporate').checked) eventType = "Corporate Event Gig";
-        if (document.getElementById('type-senior').checked) eventType = "Senior Living Facility (\$350)";
+    const BOOKING_EMAIL = 'wendy.wetware@gmail.com'; // TEST ONLY: switch back to echochamberkaraoke@gmail.com before launch
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const TYPE_LABELS = { 'type-backyard': 'Backyard/House Party ($450)', 'type-corporate': 'Corporate Event', 'type-senior': 'Senior Living Facility ($350)' };
+    const VENUE_LABELS = { 'venue-indoor': 'Indoor', 'venue-outdoor': 'Outdoor' };
 
-        let setup = document.getElementById('venue-outdoor').checked ? "Outdoor Setup" : "Indoor Setup";
+    function showResult(title, html) {
+        document.querySelector('#availability-result h4').textContent = title;
+        document.getElementById('result-message').innerHTML = html;
+        document.getElementById('availability-result').style.display = 'block';
+    }
 
-        const resultBox = document.getElementById('availability-result');
-        const messageEl = document.getElementById('result-message');
+    async function sendInquiry() {
+        const name = document.getElementById('form-name').value.trim();
+        const email = document.getElementById('form-email').value.trim();
+        const date = document.getElementById('form-date').value.trim();
+        const typeEl = document.querySelector('input[name="event-type"]:checked');
+        const venueEl = document.querySelector('input[name="venue"]:checked');
+        const eventType = typeEl ? TYPE_LABELS[typeEl.id] : 'Not specified';
+        const venue = venueEl ? VENUE_LABELS[venueEl.id] : 'Not specified';
 
-        messageEl.innerHTML = `Thanks <strong>${name}</strong>! For <strong>${dateInput}</strong> (${eventType}, ${setup}), rates and calendar availability are managed directly by our team.<br><br>Please reach out to us at <a href="mailto:echochamberkaraoke@gmail.com">echochamberkaraoke@gmail.com</a> with these details to confirm your slot!`;
-        
-        resultBox.style.display = 'block';
+        if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !date) {
+            showResult('Almost there', 'Add your name, a valid email, and your event date so we can reply.');
+            return;
+        }
+
+        const btn = document.querySelector('.action-btn');
+        btn.disabled = true;
+        showResult('Sending your inquiry…', 'One moment.');
+
+        const payload = {
+            name, email,
+            event_date: date,
+            event_type: eventType,
+            venue: venue,
+            _subject: 'Availability inquiry: ' + date + ' (' + eventType + ')',
+            _template: 'table',
+            _captcha: 'false',
+            _honey: ''
+        };
+
+        try {
+            const res = await fetch('https://formsubmit.co/ajax/' + BOOKING_EMAIL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (!res.ok || String(data.success) !== 'true') throw new Error('send failed');
+            showResult('Inquiry sent', 'Thanks <strong>' + esc(name) + '</strong>! We got your request for <strong>' + esc(date) + '</strong> and will reply to <strong>' + esc(email) + '</strong> soon.');
+        } catch (err) {
+            const body = 'Name: ' + name + '\nEmail: ' + email + '\nEvent date: ' + date + '\nEvent type: ' + eventType + '\nVenue: ' + venue;
+            const mailto = 'mailto:' + BOOKING_EMAIL + '?subject=' + encodeURIComponent('Availability inquiry: ' + date) + '&body=' + encodeURIComponent(body);
+            showResult('That didn\u2019t send', 'Something went wrong on our end. <a href="' + mailto + '">Email us your details instead</a>.');
+        } finally {
+            btn.disabled = false;
+        }
     }
   </script>
 
