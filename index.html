@@ -855,12 +855,12 @@
                 body: JSON.stringify(payload)
             });
             const data = await res.json();
-            if (!res.ok || String(data.success) !== 'true') throw new Error('send failed');
+            if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || 'send failed');
             showResult('Inquiry sent', 'Thanks <strong>' + esc(name) + '</strong>! We got your request for <strong>' + esc(date) + '</strong> and will reply to <strong>' + esc(email) + '</strong> soon.');
         } catch (err) {
             const body = 'Name: ' + name + '\nEmail: ' + email + '\nEvent date: ' + date + '\nEvent type: ' + eventType + '\nVenue: ' + venue;
             const mailto = 'mailto:' + BOOKING_EMAIL + '?subject=' + encodeURIComponent('Availability inquiry: ' + date) + '&body=' + encodeURIComponent(body);
-            showResult('That didn\u2019t send', 'Something went wrong on our end. <a href="' + mailto + '">Email us your details instead</a>.');
+            showResult('That didn\u2019t send', 'Something went wrong on our end. <a href="' + mailto + '">Email us your details instead</a>.<br><br><small>Details: ' + esc(err.message) + '</small>');
         } finally {
             btn.disabled = false;
         }
