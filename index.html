@@ -51,28 +51,20 @@
     "makesOffer": [
       {
         "@type": "Offer",
-        "name": "Backyard BBQ & House Party",
-        "price": "$250-$350",
+        "name": "The Backyard Bash",
+        "price": "450",
         "priceCurrency": "USD",
         "description": "3 hours of continuous runtime with an outdoor-ready compact audio setup and an 80k+ track library."
       },
       {
         "@type": "Offer",
-        "name": "Senior Living & Retirement Communities",
-        "price": "$175-$300",
+        "name": "Senior Living Classic",
+        "price": "350",
         "priceCurrency": "USD",
-        "description": "Familiar classics, sing-alongs, accesible microphone arrangements, and a relaxed, inclusive format."
-      },
-      {
-    "@type": "Offer",
-    "name": "Corporate & Company Events",
-    "price": "$350-$450",
-    "priceCurrency": "USD",
-    "description": "Professional hosting, customized playlists, organized participation, and optional upgraded lighting."
-    }
-  ]
-}
-    
+        "description": "2 hours of daytime entertainment with a low-profile, warm sound system and 50s-70s favorites."
+      }
+    ]
+  }
   </script>
 
   <style>
@@ -265,7 +257,27 @@
       100% { transform: scale(4); opacity: 0; }
     }
 
-    /* THE ANIMATED BACKGROUND CONTAINERS */
+    /* ===== CANVAS BACKGROUND ===== */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Static grain: dithers the gradients so they stop banding on dark screens */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
     .hero-container {
         width: 100%;
         height: 100vh;
@@ -275,94 +287,7 @@
         align-items: center;
         padding: 20px;
         position: relative;
-        z-index: 1;
-    }
-
-    .bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    /* Grain layer: dithers the gradients so they stop banding on dark screens */
-    .bg::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0.045;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
-      animation-direction: alternate;
-    }
-
-    .orb.one {
-      width: 520px; height: 520px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.32) 0%, rgba(56, 189, 248, 0) 68%);
-      top: -200px; left: -180px;
-      animation-name: drift1;
-      animation-duration: 18s;
-    }
-
-    .orb.two {
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(129, 140, 248, 0.30) 0%, rgba(129, 140, 248, 0) 68%);
-      bottom: -240px; right: -200px;
-      animation-name: drift2;
-      animation-duration: 22s;
-    }
-
-    .orb.three {
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.20) 0%, rgba(99, 102, 241, 0) 68%);
-      top: 45%; left: 55%;
-      animation-name: drift3;
-      animation-duration: 26s;
-    }
-
-    /* Translation only — scaling a cached gradient layer is what caused the seams */
-    @keyframes drift1 {
-      from { transform: translate3d(0, 0, 0); }
-      to   { transform: translate3d(180px, 140px, 0); }
-    }
-    @keyframes drift2 {
-      from { transform: translate3d(0, 0, 0); }
-      to   { transform: translate3d(-200px, -120px, 0); }
-    }
-    @keyframes drift3 {
-      from { transform: translate3d(0, 0, 0); }
-      to   { transform: translate3d(-260px, 120px, 0); }
-    }
-
-    .ripple {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 240px; height: 240px;
-      margin: -120px 0 0 -120px;
-      border: 2px solid rgba(56, 189, 248, 0.42);
-      border-radius: 50%;
-      opacity: 0;
-      animation: echo 9s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
-    }
-    .ripple:nth-child(4) { animation-delay: 1.8s; }
-    .ripple:nth-child(5) { animation-delay: 3.6s; }
-    .ripple:nth-child(6) { animation-delay: 5.4s; }
-    .ripple:nth-child(7) { animation-delay: 7.2s; }
-
-    @keyframes echo {
-      0%   { transform: scale(0.2); opacity: 0.55; }
-      70%  { opacity: 0.1; }
-      100% { transform: scale(5.5); opacity: 0; }
+        z-index: 2;
     }
 
     .brand-title {
@@ -464,7 +389,6 @@
       transform: scale(0.95);
     }
 
-    /* THE CONTENT SECTION */
     .main-content {
       position: relative;
       width: 100%;
@@ -903,16 +827,8 @@
   </div>
 
   <!-- BACKGROUND ANIMATION -->
-  <div class="bg" aria-hidden="true">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
-    <div class="ripple"></div>
-    <div class="ripple"></div>
-    <div class="ripple"></div>
-    <div class="ripple"></div>
-    <div class="ripple"></div>
-  </div>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
 
   <!-- PAGE 1: HERO SECTION -->
   <div class="hero-container">
@@ -1072,6 +988,146 @@
         intro.addEventListener('click', () => { clearTimeout(introTimer); endIntro(); });
     }
 
+    /* ===== CANVAS BACKGROUND =====
+       Orbs and echo rings are drawn here instead of as CSS layers.
+       Scaling a cached CSS layer is what produced the stretched quadrant
+       seams; canvas strokes are rasterised fresh every frame at exact size. */
+    (function () {
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d', { alpha: true });
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        const RING_PERIOD = 9000;
+        const RING_STAGGER = 1800;
+        const RINGS = 5;
+
+        let width = 0, height = 0, dpr = 1, orbs = [], rafId = 0, elapsed = 0, lastNow = 0, running = false;
+
+        function makeOrb(radius, rgb, peak) {
+            const size = Math.ceil(Math.max(2, radius) * 2);
+            const off = document.createElement('canvas');
+            off.width = off.height = size;
+            const g = off.getContext('2d');
+            const r = size / 2;
+            const grad = g.createRadialGradient(r, r, 0, r, r, r);
+            grad.addColorStop(0, 'rgba(' + rgb + ',' + peak + ')');
+            grad.addColorStop(0.5, 'rgba(' + rgb + ',' + (peak * 0.4) + ')');
+            grad.addColorStop(1, 'rgba(' + rgb + ',0)');
+            g.fillStyle = grad;
+            g.fillRect(0, 0, size, size);
+            return off;
+        }
+
+        function build() {
+            const scale = Math.max(width, height);
+            const r1 = Math.min(scale * 0.42, 420);
+            orbs = [
+                { sprite: makeOrb(r1, '56,189,248', 0.30), x: -0.10, y: -0.14, ax: 0.13, ay: 0.10, speed: 0.00019, phase: 0.0 },
+                { sprite: makeOrb(r1 * 1.08, '129,140,248', 0.28), x: 0.86, y: 1.06, ax: 0.14, ay: 0.09, speed: 0.00014, phase: 2.1 },
+                { sprite: makeOrb(r1 * 0.8, '99,102,241', 0.20), x: 0.58, y: 0.52, ax: 0.18, ay: 0.08, speed: 0.00011, phase: 4.2 }
+            ];
+        }
+
+        function resize() {
+            const w = window.innerWidth || document.documentElement.clientWidth || 0;
+            const h = window.innerHeight || document.documentElement.clientHeight || 0;
+            if (w < 1 || h < 1) return false;
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            width = w;
+            height = h;
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            build();
+            return true;
+        }
+
+        function draw(t) {
+            ctx.clearRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'lighter';
+
+            for (const o of orbs) {
+                const px = o.x * width + Math.sin(t * o.speed + o.phase) * o.ax * width;
+                const py = o.y * height + Math.cos(t * o.speed * 0.8 + o.phase) * o.ay * height;
+                ctx.drawImage(o.sprite, px - o.sprite.width / 2, py - o.sprite.height / 2);
+            }
+
+            ctx.globalCompositeOperation = 'source-over';
+
+            const cx = width / 2;
+            const cy = height / 2;
+            const baseR = Math.min(width, height) * 0.15;
+
+            for (let i = 0; i < RINGS; i++) {
+                let p = (t - i * RING_STAGGER) % RING_PERIOD;
+                if (p < 0) p += RING_PERIOD;
+                p /= RING_PERIOD;
+
+                const fadeIn = Math.min(1, p / 0.08);
+                const alpha = 0.5 * fadeIn * Math.pow(1 - p, 1.6);
+                if (alpha < 0.004) continue;
+
+                ctx.beginPath();
+                ctx.arc(cx, cy, baseR * (0.2 + p * 5.2), 0, Math.PI * 2);
+                ctx.lineWidth = 1.75;
+                ctx.strokeStyle = 'rgba(56,189,248,' + alpha.toFixed(3) + ')';
+                ctx.stroke();
+            }
+        }
+
+        function frame(now) {
+            if (!lastNow) lastNow = now;
+            elapsed += now - lastNow;
+            lastNow = now;
+            draw(elapsed);
+            if (running) rafId = requestAnimationFrame(frame);
+        }
+
+        function start() {
+            if (running || reduce.matches) return;
+            running = true;
+            lastNow = 0;
+            rafId = requestAnimationFrame(frame);
+        }
+
+        function stop() {
+            if (!running) return;
+            running = false;
+            cancelAnimationFrame(rafId);
+            lastNow = 0;
+        }
+
+        function boot() {
+            if (!resize()) { requestAnimationFrame(boot); return; }
+            draw(0);
+            start();
+        }
+
+        let resizeTimer = 0;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (resize() && !running) draw(0);
+            }, 150);
+        });
+
+        window.addEventListener('load', () => {
+            if (resize() && !running) draw(0);
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) stop();
+            else start();
+        });
+
+        if (reduce.matches) {
+            reduce.addEventListener('change', (e) => { if (e.matches) { stop(); draw(0); } else { start(); } });
+        }
+
+        window.echoBg = { start: start, stop: stop };
+        boot();
+    })();
+
     /* ===== HERO FADE ON SCROLL ===== */
     const heroElements = document.querySelectorAll('.hero-container h1, .hero-container .tagline, .hero-container .cta-button');
     const contentSection = document.getElementById('content');
@@ -1084,6 +1140,12 @@
             el.style.opacity = opacity;
             el.style.pointerEvents = pointer;
         });
+
+        if (window.echoBg) {
+            if (opacity <= 0) window.echoBg.stop();
+            else window.echoBg.start();
+        }
+
         scrollQueued = false;
     }
 
