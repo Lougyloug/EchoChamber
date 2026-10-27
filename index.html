@@ -3,12 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Echo Chamber Events</title>
-  <!-- CAN U FUCKING IMPORT INTER LOGAN -->
+  <title>Echo Chamber Events | Mobile Karaoke &amp; Sound for Any Crowd</title>
+  <meta name="description" content="Premium mobile karaoke and sound systems for backyard parties, corporate events, and senior living communities. 80k+ track library, professional hosting, transparent pricing.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0b0f19">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%230b0f19'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%2338bdf8'/%3E%3Ccircle cx='32' cy='32' r='16' fill='none' stroke='%2338bdf8' stroke-opacity='.6' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='24' fill='none' stroke='%23818cf8' stroke-opacity='.33' stroke-width='3'/%3E%3C/svg%3E">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Echo Chamber Events">
+  <meta property="og:title" content="Echo Chamber Events | Mobile Karaoke &amp; Sound">
+  <meta property="og:description" content="Premium mobile karaoke and sound systems for backyard parties, corporate events, and senior living communities.">
+  <meta property="og:image" content="logo.jpeg.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Echo Chamber Events | Mobile Karaoke &amp; Sound">
+  <meta name="twitter:description" content="Premium mobile karaoke and sound systems for backyard parties, corporate events, and senior living communities.">
+  <meta name="twitter:image" content="logo.jpeg.jpeg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet">
-  
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Echo Chamber Events",
+    "description": "Premium mobile karaoke and sound systems for backyard parties, corporate events, and senior living communities.",
+    "email": "echochamberkaraoke@gmail.com",
+    "image": "logo.jpeg.jpeg",
+    "priceRange": "$350-$450",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Your City",
+      "addressRegion": "ST",
+      "addressCountry": "US"
+    },
+    "areaServed": "Your City and surrounding areas",
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "name": "The Backyard Bash",
+        "price": "450",
+        "priceCurrency": "USD",
+        "description": "3 hours of continuous runtime with an outdoor-ready compact audio setup and an 80k+ track library."
+      },
+      {
+        "@type": "Offer",
+        "name": "Senior Living Classic",
+        "price": "350",
+        "priceCurrency": "USD",
+        "description": "2 hours of daytime entertainment with a low-profile, warm sound system and 50s-70s favorites."
+      }
+    ]
+  }
+  </script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -26,13 +75,31 @@
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background-color: #0b0f19;
       color: #f1f5f9;
-      min-height: 200vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       position: relative;
       overflow-x: hidden;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      z-index: 100;
+      background: #38bdf8;
+      color: #0b0f19;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 10px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 16px;
     }
 
     /* THE ANIMATED BACKGROUND CONTAINERS */
@@ -363,16 +430,29 @@
       margin-bottom: 6px;
     }
 
+    /* ===== BOOKING FORM ===== */
     .form-container {
       border: 1px solid var(--border-color);
       background: var(--card-bg);
-      padding: 20px;
-      border-radius: 6px;
+      padding: 22px;
+      border-radius: 10px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 18px;
       margin-top: 15px;
       text-align: left;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 15px;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .form-row {
@@ -385,19 +465,45 @@
 
     .form-group {
       flex: 1;
-      min-width: 200px;
+      min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 7px;
+    }
+
+    .form-group label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
 
     .form-group input {
+      width: 100%;
       background: rgba(11, 15, 25, 0.6);
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 8px;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
-      border-radius: 4px;
+      padding: 12px;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      color-scheme: dark;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .form-group input::placeholder {
+      color: #4b5563;
+    }
+
+    .form-group input:hover {
+      border-color: rgba(148, 163, 184, 0.45);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      background: rgba(11, 15, 25, 0.95);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18), 0 0 18px rgba(56, 189, 248, 0.12);
     }
 
     .checkbox-group {
@@ -479,7 +585,7 @@
         animation-delay: 0s !important;
       }
     }
-  
+
     /* ===== AUDIO-STYLE BUTTONS ===== */
     .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
     .eq i {
@@ -556,7 +662,7 @@
       color: #fff; box-shadow: 0 0 22px rgba(56,189,248,.4);
     }
     .action-btn:active { transform: scale(.98); }
-  
+
     /* ===== TOGGLE CHIPS (multi-select) ===== */
     .chip { position: relative; display: inline-flex; cursor: pointer; }
     .chip input {
@@ -590,11 +696,13 @@
       animation: eqBounce var(--t) ease-in-out var(--d) infinite alternate;
     }
     .chip input:focus-visible + .chip-face { outline: 2px solid #fff; outline-offset: 3px; }
-  
+
     .action-btn:disabled { opacity: .6; cursor: wait; }
   </style>
 </head>
 <body>
+
+  <a class="skip-link" href="#content">Skip to content</a>
 
   <!-- BACKGROUND ANIMATION -->
   <div class="bg" aria-hidden="true">
@@ -621,8 +729,8 @@
       </header>
 
       <div class="hero-text" style="margin-bottom: 20px; font-weight: bold; text-align: left;">
-          AMPLIFYING SOUND, SCENE, & EXPERIENCE FOR ANY CROWD<br>
-          <span style="color: var(--text-muted); font-weight: normal; font-size: 0.85rem;">Premium Mobile Karaoke & Sound Systems for All Generations</span>
+          AMPLIFYING SOUND, SCENE, &amp; EXPERIENCE FOR ANY CROWD<br>
+          <span style="color: var(--text-muted); font-weight: normal; font-size: 0.85rem;">Premium Mobile Karaoke &amp; Sound Systems for All Generations</span>
       </div>
 
       <!-- INTERACTIVE VIBE BUTTONS -->
@@ -632,27 +740,7 @@
           <button class="vibe-btn" id="btn-senior" onclick="filterVibe('senior')"><span class="led"></span>Senior Living<span class="eq"><i></i><i></i><i></i><i></i></span></button>
       </div>
 
-      <div class="section-title">CHOOSE YOUR VIBE</div>
-      <div class="grid-2">
-          <div class="card" id="card-backyard">
-              <div>
-                  <div class="card-header">BACKYARD & HOUSE PARTIES</div>
-                  <ul>
-                      <li>High-energy open-air fun</li>
-                  </ul>
-              </div>
-          </div>
-          <div class="card" id="card-corporate">
-              <div>
-                  <div class="card-header">CORPORATE GIGS & GALAS</div>
-                  <ul>
-                      <li>Professional sound & hosting</li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-
-      <div class="section-title">FEATURED GIG MEDIA (Adaptive Section based on selection above)</div>
+      <div class="section-title">FEATURED GIG MEDIA</div>
       <div class="grid-2" id="media-display">
           <div class="card">
               <div style="font-size: 0.8rem; color: var(--text-muted);" id="media-1-text">
@@ -674,7 +762,7 @@
               <div>
                   <div class="card-header">
                       <span>THE BACKYARD BASH</span>
-                      <span class="price">\$450</span>
+                      <span class="price">$450</span>
                   </div>
                   <ul>
                       <li>3 Hours of continuous runtime</li>
@@ -688,12 +776,12 @@
               <div>
                   <div class="card-header">
                       <span>SENIOR LIVING CLASSIC</span>
-                      <span class="price">\$350</span>
+                      <span class="price">$350</span>
                   </div>
                   <ul>
                       <li>2 Hours of daytime entertainment</li>
                       <li>Low-profile, crisp, warm sound system</li>
-                      <li>Focus on 50s, 60s, 70s, & Showtunes</li>
+                      <li>Focus on 50s, 60s, 70s, &amp; Showtunes</li>
                   </ul>
               </div>
           </div>
@@ -701,17 +789,34 @@
 
       <!-- CHECK AVAILABILITY SECTION -->
       <div class="section-title">CHECK AVAILABILITY FOR YOUR DATE</div>
-      <div class="form-container">
-          <div class="form-row">
+      <form class="form-container" id="booking-form" onsubmit="event.preventDefault(); checkAvailability();">
+          <div class="form-grid">
               <div class="form-group">
-                  <label>Full Name:</label>
-                  <input type="text" id="form-name" placeholder="[ Your Name ]">
+                  <label for="form-name">Full name</label>
+                  <input type="text" id="form-name" name="name" autocomplete="name" placeholder="Jamie Rivera">
               </div>
               <div class="form-group">
-                  <label>Contact Email:</label>
-                  <input type="email" id="form-email" placeholder="[ Your Email ]">
+                  <label for="form-email">Email</label>
+                  <input type="email" id="form-email" name="email" autocomplete="email" placeholder="jamie@example.com">
+              </div>
+              <div class="form-group">
+                  <label for="form-phone">Phone number</label>
+                  <input type="tel" id="form-phone" name="phone" autocomplete="tel" placeholder="(555) 123-4567">
+              </div>
+              <div class="form-group">
+                  <label for="form-date">Event date</label>
+                  <input type="date" id="form-date" name="event_date">
+              </div>
+              <div class="form-group">
+                  <label for="form-time">Start time</label>
+                  <input type="time" id="form-time" name="start_time">
+              </div>
+              <div class="form-group">
+                  <label for="form-guests">Guest count</label>
+                  <input type="number" id="form-guests" name="guests" min="1" max="500" inputmode="numeric" placeholder="40">
               </div>
           </div>
+
           <div class="form-row" style="align-items: center;">
               <div class="checkbox-group">
                   <span>Event Type:</span>
@@ -720,25 +825,23 @@
                   <label class="chip"><input type="radio" name="event-type" id="type-senior"><span class="chip-face"><span class="led"></span>Senior Living Facility<span class="eq"><i></i><i></i><i></i><i></i></span></span></label>
               </div>
           </div>
-          <div class="form-row">
-              <div class="form-group">
-                  <label>Event Date:</label>
-                  <input type="text" id="form-date" placeholder="[ MM / DD / YYYY ]">
-              </div>
-              <div class="checkbox-group" style="padding-top: 15px;">
+
+          <div class="form-row" style="align-items: center;">
+              <div class="checkbox-group">
                   <span>Venue Setup:</span>
                   <label class="chip"><input type="radio" name="venue" id="venue-indoor"><span class="chip-face"><span class="led"></span>Indoor<span class="eq"><i></i><i></i><i></i><i></i></span></span></label>
                   <label class="chip"><input type="radio" name="venue" id="venue-outdoor"><span class="chip-face"><span class="led"></span>Outdoor<span class="eq"><i></i><i></i><i></i><i></i></span></span></label>
               </div>
           </div>
-          <button class="action-btn" style="margin-top: 10px;" onclick="checkAvailability()"><span class="eq"><i></i><i></i><i></i><i></i></span>Check Availability<span class="eq"><i></i><i></i><i></i><i></i></span></button>
-          
+
+          <button type="submit" class="action-btn"><span class="eq"><i></i><i></i><i></i><i></i></span>Check Availability<span class="eq"><i></i><i></i><i></i><i></i></span></button>
+
           <!-- IN-PAGE RESULT BOX -->
-          <div id="availability-result" class="availability-result">
+          <div id="availability-result" class="availability-result" role="status" aria-live="polite">
               <h4>Availability Inquiry Ready</h4>
               <p id="result-message">Please reach out to our booking team to lock in your date and rates.</p>
           </div>
-      </div>
+      </form>
 
   </section>
 
@@ -773,6 +876,11 @@
 
     observer.observe(contentSection);
 
+    /* NO BOOKING IN THE PAST */
+    const dateInput = document.getElementById('form-date');
+    const localToday = new Date();
+    dateInput.min = new Date(localToday.getTime() - localToday.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+
     /* INTERACTIVE VIBE SWITCHER LOGIC */
     function filterVibe(vibe) {
         document.querySelectorAll('.vibe-btn').forEach(btn => btn.classList.remove('active'));
@@ -780,26 +888,24 @@
 
         if (vibe === 'backyard') {
             document.getElementById('btn-backyard').classList.add('active');
-            document.getElementById('card-backyard').classList.add('highlighted');
             document.getElementById('pricing-backyard').classList.add('highlighted');
             document.getElementById('type-backyard').checked = true;
-            
+
             document.getElementById('media-1-text').innerHTML = '▶ VIDEO: Backyard Birthday BBQ Jam<br><span style="font-size: 0.75rem;">[Family-friendly hits, outdoor setup]</span>';
             document.getElementById('media-2-text').innerHTML = '📸 PHOTO: Summer Sunset Open-Air Party<br><span style="font-size: 0.75rem;">[High energy, robust sound coverage]</span>';
-        
+
         } else if (vibe === 'corporate') {
             document.getElementById('btn-corporate').classList.add('active');
-            document.getElementById('card-corporate').classList.add('highlighted');
             document.getElementById('type-corporate').checked = true;
-            
+
             document.getElementById('media-1-text').innerHTML = '▶ VIDEO: Annual Tech Gala Live Mix<br><span style="font-size: 0.75rem;">[Professional sound array, seamless queue]</span>';
             document.getElementById('media-2-text').innerHTML = '📸 PHOTO: Executive Networking Mixer<br><span style="font-size: 0.75rem;">[Low-profile crisp audio, wireless mics]</span>';
-        
+
         } else if (vibe === 'senior') {
             document.getElementById('btn-senior').classList.add('active');
             document.getElementById('pricing-senior').classList.add('highlighted');
             document.getElementById('type-senior').checked = true;
-            
+
             document.getElementById('media-1-text').innerHTML = '▶ VIDEO: Classic 60s & 70s Sing-Along<br><span style="font-size: 0.75rem;">[Clear lyric projection, warm vocals]</span>';
             document.getElementById('media-2-text').innerHTML = '📸 PHOTO: Afternoon Community Center Jam<br><span style="font-size: 0.75rem;">[Comfortable volume, nostalgic favorites]</span>';
         }
@@ -808,10 +914,26 @@
     /* IN-PAGE AVAILABILITY & EMAIL INSTRUCTIONS */
     function checkAvailability() { return sendInquiry(); }
 
-    const BOOKING_EMAIL = 'wendy.wetware@gmail.com'; // TEST ONLY: switch back to echochamberkaraoke@gmail.com before launch
+    const BOOKING_EMAIL = 'echochamberkaraoke@gmail.com';
     const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const TYPE_LABELS = { 'type-backyard': 'Backyard/House Party ($450)', 'type-corporate': 'Corporate Event', 'type-senior': 'Senior Living Facility ($350)' };
     const VENUE_LABELS = { 'venue-indoor': 'Indoor', 'venue-outdoor': 'Outdoor' };
+
+    const prettyDate = iso => {
+        const [y, m, d] = iso.split('-').map(Number);
+        if (!y || !m || !d) return iso;
+        return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+    };
+
+    const prettyTime = t => {
+        if (!t) return 'Not specified';
+        const [h, m] = t.split(':').map(Number);
+        return new Date(2000, 0, 1, h, m).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    };
+
+    const listPhrase = items => items.length > 1
+        ? items.slice(0, -1).join(', ') + ' and ' + items[items.length - 1]
+        : items[0];
 
     function showResult(title, html) {
         document.querySelector('#availability-result h4').textContent = title;
@@ -822,14 +944,23 @@
     async function sendInquiry() {
         const name = document.getElementById('form-name').value.trim();
         const email = document.getElementById('form-email').value.trim();
-        const date = document.getElementById('form-date').value.trim();
+        const phone = document.getElementById('form-phone').value.trim();
+        const date = document.getElementById('form-date').value;
+        const time = document.getElementById('form-time').value;
+        const guests = document.getElementById('form-guests').value.trim();
         const typeEl = document.querySelector('input[name="event-type"]:checked');
         const venueEl = document.querySelector('input[name="venue"]:checked');
         const eventType = typeEl ? TYPE_LABELS[typeEl.id] : 'Not specified';
         const venue = venueEl ? VENUE_LABELS[venueEl.id] : 'Not specified';
 
-        if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !date) {
-            showResult('Almost there', 'Add your name, a valid email, and your event date so we can reply.');
+        const missing = [];
+        if (!name) missing.push('your name');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) missing.push('a valid email');
+        if (phone.replace(/\D/g, '').length < 10) missing.push('a phone number');
+        if (!date) missing.push('the event date');
+
+        if (missing.length) {
+            showResult('Almost there', 'Add ' + listPhrase(missing) + ' so we can reply.');
             return;
         }
 
@@ -838,11 +969,13 @@
         showResult('Sending your inquiry…', 'One moment.');
 
         const payload = {
-            name, email,
-            event_date: date,
+            name, email, phone,
+            event_date: prettyDate(date),
+            start_time: prettyTime(time),
+            guests: guests || 'Not specified',
             event_type: eventType,
             venue: venue,
-            _subject: 'Availability inquiry: ' + date + ' (' + eventType + ')',
+            _subject: 'Availability inquiry: ' + prettyDate(date) + ' (' + eventType + ')',
             _template: 'table',
             _captcha: 'false',
             _honey: ''
@@ -856,10 +989,10 @@
             });
             const data = await res.json();
             if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || 'send failed');
-            showResult('Inquiry sent', 'Thanks <strong>' + esc(name) + '</strong>! We got your request for <strong>' + esc(date) + '</strong> and will reply to <strong>' + esc(email) + '</strong> soon.');
+            showResult('Inquiry sent', 'Thanks <strong>' + esc(name) + '</strong>! We have your request for <strong>' + esc(prettyDate(date)) + '</strong> and will reply to <strong>' + esc(email) + '</strong> within one business day.');
         } catch (err) {
-            const body = 'Name: ' + name + '\nEmail: ' + email + '\nEvent date: ' + date + '\nEvent type: ' + eventType + '\nVenue: ' + venue;
-            const mailto = 'mailto:' + BOOKING_EMAIL + '?subject=' + encodeURIComponent('Availability inquiry: ' + date) + '&body=' + encodeURIComponent(body);
+            const body = 'Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\nEvent date: ' + prettyDate(date) + '\nStart time: ' + prettyTime(time) + '\nGuests: ' + (guests || 'Not specified') + '\nEvent type: ' + eventType + '\nVenue: ' + venue;
+            const mailto = 'mailto:' + BOOKING_EMAIL + '?subject=' + encodeURIComponent('Availability inquiry: ' + prettyDate(date)) + '&body=' + encodeURIComponent(body);
             showResult('That didn\u2019t send', 'Something went wrong on our end. <a href="' + mailto + '">Email us your details instead</a>.<br><br><small>Details: ' + esc(err.message) + '</small>');
         } finally {
             btn.disabled = false;
